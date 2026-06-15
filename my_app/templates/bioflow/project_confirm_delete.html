@@ -1,0 +1,14 @@
+{% extends "bioflow/base.html" %}
+
+{% block content %}
+  <h1>Delete Project</h1>
+  
+  <p>Are you sure you want to delete the project <strong>"{{ project.name }}"</strong>?</p>
+  <p>This action cannot be undone.</p>
+
+  <form method="POST" action="">
+    {% csrf_token %}
+    <button type="submit" style="background-color: #d9534f; color: white;">Confirm Delete</button>
+    <a href="{% url 'detail' project.pk %}">Cancel</a>
+  </form>
+{% endblock %}

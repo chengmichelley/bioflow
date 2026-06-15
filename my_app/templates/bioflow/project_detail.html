@@ -1,0 +1,15 @@
+{% extends "bioflow/base.html" %}
+
+{% block content %}
+  <h1>{{ project.name }}</h1>
+  
+  <p><strong>Status:</strong> {{ project.status }}</p>
+  <p><strong>Description:</strong></p>
+  <p>{{ project.description }}</p>
+
+  <hr>
+  <a href="{% url 'update' project.pk %}">Edit Project</a> | 
+  <a href="{% url 'delete' project.pk %}">Delete Project</a> | 
+  <a href="{% url 'index' %}">Back to All Projects</a>
+{% endblock %}
+
