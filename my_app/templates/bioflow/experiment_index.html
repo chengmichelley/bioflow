@@ -1,0 +1,18 @@
+{% extends "bioflow/base.html" %}
+
+{% block content %}
+  <h1>All Experiments</h1>
+
+  <div class="experiments-list">
+    {% for experiment in experiments %}
+      <div class="experiment-card">
+        <h3>{{ experiment.title }}</h3>
+        <p><strong>Status:</strong> {{ experiment.status }}</p>
+        <p>{{ experiment.objective }}</p>
+        <a href="{% url 'experiment_detail' experiment.pk %}">View Experiment</a>
+      </div>
+    {% empty %}
+      <p>No experiments have been created yet. Click "+ New Experiment" above to make one!</p>
+    {% endfor %}
+  </div>
+{% endblock %}

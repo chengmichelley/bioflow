@@ -1,35 +1,92 @@
-from django.db import models
-# Users
-from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Project, Experiment
+from django import forms
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description', 'status']
+
+class ExperimentForm(forms.ModelForm):
+    class Meta:
+        model = Experiment
+        fields = ['project', 'title', 'objective', 'lead_researcher', 'status', 'start_date', 'end_date']
+
+def home(request):
+    return render(request, 'bioflow/home.html')
 
 # Projects
-class Project(models.Model):
-    STATUS_CHOICES = [
-        ("planning", "Planning"),
-        ("active", "Active"),
-        ("completed", "Completed"),
-        ("archived", "Archived"),
-    ]
+
+def project_index(request):
+    projects = Project.objects.all()
+    return render(request, 'bioflow/project_index.html', { 'projects': projects })
+
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk = pk)
+    return render(request, 'bioflow/project_detail.html', { 'project': project})
+
+def project_create(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('project_index')
+    else:
+        form = ProjectForm()
+    return render(request, 'bioflow/project_form.html', { 'form':form })
     
-    name = models.CharField(max_length= 200)
-    description = models.TextField(blank=True)
-    status = models.CharField(
-        max_length = 20,
-        choices= STATUS_CHOICES,
-        default = "planning"
-    )
-    
-    created_at = models.DateTimeField(auto_now_add = True)
-    
-    def __str__(self):
-        return self.name
-    
+def project_update(request, pk):
+    project = get_object_or_404(Project, pk = pk)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance = project)
+        if form.is_valid():
+            form.save()
+            return redirect('project_detail', pk = project.pk)
+    else:
+        form = ProjectForm(instance = project)
+    return render(request, 'bioflow/project_form.html', { 'form': form, 'project': project })
+
+def project_delete(request, pk):
+    project = get_object_or_404(Project, pk = pk)
+    if request.method == 'POST':
+        project.delete()
+        return redirect('project_index')
+    return render(request, 'bioflow/project_confirm_delete.html', { 'project': project})
+
 # Experiments
 
-# Samples
+def experiment_index(request):
+    experiments = Experiment.objects.all()
+    return render(request, 'bioflow/experiment_index.html', { 'experiments': experiments })
 
-# Tasks
+def experiment_detail(request, pk):
+    experiment = get_object_or_404(Experiment, pk = pk)
+    return render(request, 'bioflow/experiment_detail.html', { 'experiment': experiment})
 
-# Quality Control Review
+def experiment_create(request):
+    if request.method == 'POST':
+        form = ExperimentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('experiment_index')
+    else:
+        form = ExperimentForm()
+    return render(request, 'bioflow/experiment_form.html', { 'form': form })
+    
+def experiment_update(request, pk):
+    experiment = get_object_or_404(Experiment, pk = pk)
+    if request.method == 'POST':
+        form = ExperimentForm(request.POST, instance = experiment)
+        if form.is_valid():
+            form.save()
+            return redirect('experiment_detail', pk = experiment.pk)
+    else:
+        form = ExperimentForm(instance = experiment)
+    return render(request, 'bioflow/experiment_form.html', { 'form': form, 'experiment': experiment })
 
-# Audit Logs
+def experiment_delete(request, pk):
+    experiment = get_object_or_404(Experiment, pk = pk)
+    if request.method == 'POST':
+        experiment.delete()
+        return redirect('experiment_index')
+    return render(request, 'bioflow/experiment_confirm_delete.html', { 'experiment': experiment})

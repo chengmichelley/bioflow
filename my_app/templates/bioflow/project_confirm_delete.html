@@ -9,6 +9,6 @@
   <form method="POST" action="">
     {% csrf_token %}
     <button type="submit" style="background-color: #d9534f; color: white;">Confirm Delete</button>
-    <a href="{% url 'detail' project.pk %}">Cancel</a>
+    <a href="{% url 'project_detail' project.pk %}">Cancel</a>
   </form>
 {% endblock %}

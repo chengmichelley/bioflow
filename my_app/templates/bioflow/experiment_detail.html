@@ -1,0 +1,14 @@
+{% extends "bioflow/base.html" %}
+
+{% block content %}
+  <h1>{{ experiment.title }}</h1>
+  
+  <p><strong>Status:</strong> {{ experiment.status }}</p>
+  <p><strong>Description:</strong></p>
+  <p>{{ experiment.objective }}</p>
+
+  <hr>
+  <a href="{% url 'experiment_update' experiment.pk %}">Edit Experiment</a> | 
+  <a href="{% url 'experiment_delete' experiment.pk %}">Delete Experiment</a> | 
+  <a href="{% url 'experiment_index' %}">Back to All Experiments</a>
+{% endblock %}

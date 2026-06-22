@@ -1,11 +1,11 @@
 {% extends 'bioflow/base.html' %}
 
 {% block content %}
-  <h1>Create a New Project</h1>
+  <h1>{% if project %}Edit Project{% else %}Create a New Project{% endif %}</h1>
   
   <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Create Project</button>
+    <button type="submit">{% if project %}Update Project{% else %}Create Project{% endif %}</button>
   </form>
 {% endblock %}

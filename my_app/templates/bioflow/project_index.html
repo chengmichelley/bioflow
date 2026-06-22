@@ -9,7 +9,7 @@
         <h3>{{ project.name }}</h3>
         <p><strong>Status:</strong> {{ project.status }}</p>
         <p>{{ project.description }}</p>
-        <a href="{% url 'detail' project.pk %}">View Project</a>
+        <a href="{% url 'project_detail' project.pk %}">View Project</a>
       </div>
     {% empty %}
       <p>No projects have been created yet. Click "+ New Project" above to make one!</p>

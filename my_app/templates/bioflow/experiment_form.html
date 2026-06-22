@@ -1,0 +1,11 @@
+{% extends 'bioflow/base.html' %}
+
+{% block content %}
+  <h1>{% if experiment %}Edit Experiment{% else %}Create a New Experiment{% endif %}</h1>
+  
+  <form method="POST" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if experiment %}Update Experiment{% else %}Create Experiment{% endif %}</button>
+  </form>
+{% endblock %}
