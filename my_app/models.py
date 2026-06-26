@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=200)
     description = models.TextField()
     status = models.CharField(max_length=50)
@@ -11,6 +13,7 @@ class Project(models.Model):
 
 class Experiment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=200)
     objective = models.TextField()
     lead_researcher = models.CharField(max_length=100)

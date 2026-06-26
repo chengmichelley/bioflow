@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # Home landing page
-    path('', views.home, name = 'home'),
+    path('', views.home, name='home'),
     
     # Project CRUD paths
     path('projects/', views.project_index, name = 'project_index'),
