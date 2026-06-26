@@ -10,7 +10,7 @@ class ProjectForm(forms.ModelForm):
 class ExperimentForm(forms.ModelForm):
     class Meta:
         model = Experiment
-        fields = ['name', 'description']
+        fields = ['project', 'title', 'objective', 'lead_researcher', 'status', 'start_date', 'end_date']
 
 def home(request):
     return render(request, 'bioflow/home.html')

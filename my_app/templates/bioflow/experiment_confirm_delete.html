@@ -1,14 +1,15 @@
 {% extends "bioflow/base.html" %}
 
 {% block content %}
-  <h1>{{ experiment.title }}</h1>
+  <h1>Delete Experiment</h1>
   
-  <p><strong>Status:</strong> {{ experiment.status }}</p>
-  <p><strong>Description:</strong></p>
-  <p>{{ experiment.objective }}</p>
+  <p>Are you sure you want to permanently delete the experiment <strong>"{{ experiment.title }}"</strong>?</p>
 
-  <hr>
-  <a href="{% url 'experiment_update' experiment.pk %}">Edit Experiment</a> | 
-  <a href="{% url 'experiment_delete' experiment.pk %}">Delete Experiment</a> | 
-  <a href="{% url 'experiment_index' %}">Back to All Experiment</a>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer;">
+      Confirm Delete
+    </button>
+    <a href="{% url 'experiment_detail' experiment.pk %}" style="margin-left: 10px;">Cancel</a>
+  </form>
 {% endblock %}
